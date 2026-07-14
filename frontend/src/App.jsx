@@ -1,12 +1,27 @@
-import './App.css';
-import Login from './components/login/Login';
+import React, { useState } from 'react';
+import Login from './Pages/Login';
+import Dashboard from './Pages/Dashboard';
+import '../src/css/';
 
-function App() {
+export default function App() {
+  // O estado gerencia se o usuário está ou não logado no sistema
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+  };
+
   return (
-    <div className="App">
-      <Login />
-    </div>
+    <>
+      {isAuthenticated ? (
+        <Dashboard onLogout={handleLogout} />
+      ) : (
+        <Login onLogin={handleLogin} />
+      )}
+    </>
   );
 }
-
-export default App
